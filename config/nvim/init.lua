@@ -1,3 +1,4 @@
-require('config.options')
-require('config.keybinds')
-require('config.lazy')
+_G.Utils = require("utils")
+
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")

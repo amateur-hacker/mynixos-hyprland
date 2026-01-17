@@ -1,55 +1,27 @@
--- OPTIONS
-local set = vim.opt
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
 
---line nums
-set.relativenumber = true
-set.number = true
+local opt = vim.opt
+local g = vim.g
 
--- indentation and tabs
-set.tabstop = 4
-set.shiftwidth = 4
-set.autoindent = true
-set.expandtab = true
+opt.guifont = "JetBrainsMono Nerd Font:h16" -- Set gui font
+opt.swapfile = false -- Disable swap file
+opt.showcmd = false -- Disable command in lualine
+opt.foldlevel = 99
+opt.foldlevelstart = 99
 
--- search settings
-set.ignorecase = true
-set.smartcase = true
+-- Enable this option to avoid conflicts with Prettier.
+g.lazyvim_prettier_needs_config = true
 
--- appearance
-set.termguicolors = true
-set.background = "dark"
-set.signcolumn = "yes"
-
--- cursor line
-set.cursorline = true
-
--- 80th column
-set.colorcolumn = "80"
-
--- clipboard
-set.clipboard:append("unnamedplus")
-
--- backspace
-set.backspace = "indent,eol,start"
-
--- split windows
-set.splitbelow = true
-set.splitright = true
-
--- dw/diw/ciw works on full-word
-set.iskeyword:append("-")
-
--- keep cursor at least 8 rows from top/bot
-set.scrolloff = 8
-
--- undo dir settings
-set.swapfile = false
-set.backup = false
-set.undodir = os.getenv("HOME") .. "/.vim/undodir"
-set.undofile = true
-
--- incremental search
-set.incsearch = true
-
--- faster cursor hold
-set.updatetime = 50
+vim.filetype.add({
+  extension = {
+    env = "sh",
+  },
+  filename = {
+    [".env"] = "sh",
+  },
+  pattern = {
+    ["%.env%.[%w_.-]+"] = "sh",
+  },
+})
