@@ -17,23 +17,6 @@ in {
   home.username = "amateur_hacker";
   home.homeDirectory = "/home/amateur_hacker";
   home.stateVersion = "25.05";
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      btw = "echo i use hyprland btw";
-      nrs = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#machine";
-      vim = "nvim";
-    };
-    initExtra = ''
-      export PS1='\[\e[38;5;76m\]\u\[\e[0m\] in \[\e[38;5;32m\]\w\[\e[0m\] \\$ '
-      nitch
-    '';
-    profileExtra = ''
-      if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-          exec Hyprland
-      fi
-    '';
-  };
 
   home.packages = with pkgs; [
     neovim
