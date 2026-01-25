@@ -4,12 +4,27 @@ let
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 
   configs = {
+    btop = "btop";
+    dunst = "dunst";
+    fastfetch = "fastfetch";
+    fish = "fish";
+    htop = "htop";
     hypr = "hypr";
+    kitty = "kitty";
+    lazydocker = "lazydocker";
+    lazygit = "lazygit";
+    lsd = "lsd";
     nvim = "nvim";
-    wofi = "wofi";
     rofi = "rofi";
-    foot = "foot";
+    starship = "starship";
+    Thunar = "Thunar";
     waybar = "waybar";
+    wlogout = "wlogout";
+    xfce4 = "xfce4";
+    yazi = "yazi";
+    zathura = "zathura";
+    "brave-flags.conf" = "brave-flags.conf";
+    "user-dirs.dirs" = "user-dirs.dirs";
   };
 in {
   imports = [ ./modules/theme.nix ];
@@ -19,16 +34,31 @@ in {
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
+    btop
+    dunst
+    fastfetch
+    # fish
+    htop
+    # hypr
+    # hyprlock
+    # hypridle
+    waypaper
+    kitty
+    lazydocker
+    lazygit
+    lsd
     neovim
-    ripgrep
+    rofi
+    starship
+    swww
+    ungoogled-chromium
+    wlogout
+    ripgrep-all
     nil
     nixpkgs-fmt
     nodejs
     gcc
-    wofi
     nitch
-    rofi
-    pcmanfm
     (pkgs.writeShellApplication {
       name = "ns";
       runtimeInputs = with pkgs; [
@@ -38,6 +68,8 @@ in {
       text = ''exec "${pkgs.nix-search-tv.src}/nixpkgs.sh" "$@"'';
     })
   ];
+
+  home.file.".face".source = "${config.home.homeDirectory}/.face";
 
   xdg.configFile = builtins.mapAttrs (name: subpath: {
     source = create_symlink "${dotfiles}/${subpath}";

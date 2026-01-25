@@ -4,6 +4,8 @@
   home.packages = with pkgs; [
     adwaita-icon-theme
     gnome-themes-extra
+    tela-circle-icon-theme
+    catppuccin
   ];
 
   gtk = {
