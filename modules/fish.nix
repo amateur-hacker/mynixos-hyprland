@@ -29,6 +29,7 @@
       chmod = "chmod -v";
       chown = "chown -v";
       ls = "lsd --icon=always --color=always --group-directories-first";
+      ld = "eza -lhD --icons=always --color=always";
       la = "lsd -a --icon=always --color=always --group-directories-first";
       ll = "lsd -l --icon=always --color=always --group-directories-first";
       lla = "lsd -al --icon=always --color=always --group-directories-first";
@@ -36,8 +37,13 @@
         "lsd -a --tree --icon=always --color=always --group-directories-first";
       "l." = "lsd -d --icon=always --color=always --group-directories-first .*";
 
+      # Better defaults
+      cat = "bat";
+      man = "batman";
+
       # Application shortcuts
       v = "nvim";
+      sv = "sudoedit";
       za = "zathura";
 
       # Clean home directory
@@ -108,6 +114,71 @@
       set -x LESS_TERMCAP_se (printf '\e[0m')
       set -x LESS_TERMCAP_us (printf '\e[1;32m')
       set -x LESS_TERMCAP_ue (printf '\e[0m')
+
+      # Launch fastfetch
+      if status is-interactive
+          fastfetch
+      end
     '';
+    # Vim-style key bindings + HyDE history bindings
+    functions = {
+      fish_user_key_bindings = ''
+        bind yy fish_clipboard_copy
+        bind Y fish_clipboard_copy
+        bind p fish_clipboard_paste
+        bind -M visual -m default y 'fish_clipboard_copy; commandline -f end-selection repaint-mode'
+        bind --erase --preset -M visual \ev
+        bind --erase --preset -M insert \ev
+        bind \eh backward-word
+        bind \ej down-line-or-history
+        bind \ek up-line-or-history
+        bind \el forward-word
+
+        # HyDE: Quick history access with Alt+number (1-9)
+        bind_M_n_history
+      '';
+
+      # HyDE function: Bind Alt+number to recall history items
+      bind_M_n_history = ''
+        for i in (seq 9)
+          set -l command
+          if test (count $history) -ge $i
+            set command "commandline -r \$history[$i]"
+          else
+            set command "echo \"No history found for number $i\""
+          end
+
+          if contains fish_vi_key_bindings $fish_key_bindings
+            bind -M default \e$i "$command"
+            bind -M insert \e$i "$command"
+          else
+            bind \e$i "$command"
+          end
+        end
+      '';
+    };
+    # Fish plugins for enhanced functionality
+    plugins = [
+      # FZF integration for Fish
+      {
+        name = "fzf-fish";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+      # Auto-complete matching pairs
+      {
+        name = "autopair";
+        src = pkgs.fishPlugins.autopair.src;
+      }
+      # Notifications when long commands finish
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+      # Clean failed commands from history
+      {
+        name = "sponge";
+        src = pkgs.fishPlugins.sponge.src;
+      }
+    ];
   };
 }
