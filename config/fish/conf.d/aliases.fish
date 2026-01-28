@@ -29,6 +29,10 @@ alias lla='lsd -al --icon=always --color=always --group-directories-first'
 alias lt='lsd -a --tree --icon=always --color=always --group-directories-first'
 alias l.='lsd -d --icon=always --color=always --group-directories-first .*'
 
+# Better defaults
+alias cat="bat"
+alias man="batman"
+
 # Application shortcuts
 alias v="nvim"
 alias za="zathura"

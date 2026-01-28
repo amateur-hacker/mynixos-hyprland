@@ -28,14 +28,15 @@
       ln = "ln -iv";
       chmod = "chmod -v";
       chown = "chown -v";
-      ls = "lsd --icon=always --color=always --group-directories-first";
-      ld = "eza -lhD --icons=always --color=always";
-      la = "lsd -a --icon=always --color=always --group-directories-first";
-      ll = "lsd -l --icon=always --color=always --group-directories-first";
-      lla = "lsd -al --icon=always --color=always --group-directories-first";
-      lt =
-        "lsd -a --tree --icon=always --color=always --group-directories-first";
-      "l." = "lsd -d --icon=always --color=always --group-directories-first .*";
+      ls = "lsd --group-directories-first";
+      # ld = "lsd -d */";
+      # "ld." = "lsd -d .*/";
+      # "lad" = "lsd -d */ .*/";
+      la = "lsd -a --group-directories-first";
+      ll = "lsd -l --group-directories-first";
+      lla = "lsd -al --group-directories-first";
+      lt = "lsd -a --tree --group-directories-first";
+      "l." = "lsd -d --group-directories-first .*";
 
       # Better defaults
       cat = "bat";
